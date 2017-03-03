@@ -1,0 +1,40 @@
+# This is a simple ns script that demonstrates loops.
+set ns [new Simulator]
+source tb_compat.tcl
+set maxclientnodes 1
+set maxservernodes 3
+set lanstr ""
+
+for {set i 1} {$i <= $maxclientnodes} {incr i} {
+  set client($i) [$ns node]
+  tb-set-hardware $client($i) d710
+  append lanstr "$client($i) "
+  tb-set-node-os $client($i) UBUNTU14-64-STD
+  # set local storages
+  set clientbs($i) [$ns blockstore]
+  $clientbs($i) set-class "local"
+  $clientbs($i) set-size "5GB"
+  $clientbs($i) set-placement "nonsysvol"
+  $clientbs($i) set-mount-point "/mnt/extra"
+  $clientbs($i) set-node $client($i)
+}
+
+# servers
+for {set i 1} {$i <= $maxservernodes} {incr i} {
+  set node($i) [$ns node]
+  append lanstr "$node($i) "
+  tb-set-node-os $node($i) UBUNTU14-64-STD
+  # set local storages
+  set bs($i) [$ns blockstore]
+  $bs($i) set-class "local"
+  $bs($i) set-size "5GB"
+  $bs($i) set-placement "nonsysvol"
+  $bs($i) set-mount-point "/mnt/extra"
+  $bs($i) set-node $node($i)
+}
+
+# Put all the nodes in a lan
+set big-lan [$ns make-lan "$lanstr" 1Gb 0ms]
+
+# Go!
+$ns run
