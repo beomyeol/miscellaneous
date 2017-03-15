@@ -9,7 +9,7 @@ for {set i 1} {$i <= $maxclientnodes} {incr i} {
   set client($i) [$ns node]
   tb-set-hardware $client($i) d710
   append lanstr "$client($i) "
-  tb-set-node-os $client($i) UBUNTU14-64-STD
+  tb-set-node-os $client($i) UBUNTU16-64-STD
   # set local storages
   set clientbs($i) [$ns blockstore]
   $clientbs($i) set-class "local"
@@ -24,7 +24,7 @@ for {set i 1} {$i <= $maxservernodes} {incr i} {
   set node($i) [$ns node]
   tb-set-hardware $node($i) d710
   append lanstr "$node($i) "
-  tb-set-node-os $node($i) UBUNTU14-64-STD
+  tb-set-node-os $node($i) UBUNTU16-64-STD
   # set local storages
   set bs($i) [$ns blockstore]
   $bs($i) set-class "local"
