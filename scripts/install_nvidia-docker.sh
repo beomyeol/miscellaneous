@@ -23,7 +23,7 @@ sudo apt-get update
 sudo apt-get install -y docker-ce
 
 # Install nvidia-driver
-sudo apt-get install -y nvidia-367-dev
+sudo apt-get install -y nvidia-367-dev nvidia-modprobe
 
 # Install nvidia-docker and nvidia-docker-plugin
 wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb
